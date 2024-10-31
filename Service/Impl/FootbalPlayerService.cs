@@ -22,6 +22,21 @@ namespace Service.Impl
             return await _repository.AddPlayer(resquest);
         }
 
+        public Task<FootballPlayerResponse> GetPlayer(string footballPlayerId)
+        {
+            return _repository.GetPlayer(footballPlayerId);
+        }
+
+        public Task<List<FootballPlayerResponse>> GetPlayers()
+        {
+            return _repository.GetPlayers();
+        }
+
+        public Task<bool> RemovePlayer(string footballPlayerId)
+        {
+            return _repository.RemovePlayer(footballPlayerId);
+        }
+
         public async Task<FootballPlayerResponse> UpdatePlayer(FootballPlayerResquest request)
         {
             return await _repository.UpdatePlayer(request);

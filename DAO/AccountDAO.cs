@@ -1,4 +1,5 @@
 ﻿using BOs;
+using BOs.Resquest;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -30,10 +31,10 @@ namespace DAO
             }
         }
 
-        public async Task<PremierLeagueAccount> Login(string email, string password)
+        public async Task<PremierLeagueAccount> Login(LoginRequest request)
         {
+            var account = await context.PremierLeagueAccounts.FirstOrDefaultAsync(context => context.EmailAddress == request.Email && context.Password == request.Password);
             
-                PremierLeagueAccount account = await context.PremierLeagueAccounts.FirstOrDefaultAsync(a => a.EmailAddress == email && a.Password == password);
             if(account == null)
             {
                 throw new Exception("Account not found");

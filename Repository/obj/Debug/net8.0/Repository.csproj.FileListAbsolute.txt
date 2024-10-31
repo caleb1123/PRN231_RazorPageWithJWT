@@ -2,6 +2,8 @@ C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\ne
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\Repository.dll
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\Repository.pdb
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\BOs.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\DAO.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\DAO.pdb
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\BOs.pdb
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\obj\Debug\net8.0\Repository.csproj.AssemblyReference.cache
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\obj\Debug\net8.0\Repository.GeneratedMSBuildEditorConfig.editorconfig
@@ -14,5 +16,3 @@ C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\obj\Debug\ne
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\obj\Debug\net8.0\refint\Repository.dll
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\obj\Debug\net8.0\Repository.pdb
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\obj\Debug\net8.0\ref\Repository.dll
-C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\DAO.dll
-C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\Repository\bin\Debug\net8.0\DAO.pdb

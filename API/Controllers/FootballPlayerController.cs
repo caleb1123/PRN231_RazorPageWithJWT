@@ -53,5 +53,59 @@ namespace API.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpDelete("remove/{footballPlayerId}")]
+        public async Task<IActionResult> RemovePlayer(string footballPlayerId)
+        {
+            if (string.IsNullOrEmpty(footballPlayerId))
+            {
+                return BadRequest("Invalid player id.");
+            }
+
+            try
+            {
+                bool response = await _service.RemovePlayer(footballPlayerId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("get/{footballPlayerId}")]
+        public async Task<IActionResult> GetPlayer(string footballPlayerId)
+        {
+            if (string.IsNullOrEmpty(footballPlayerId))
+            {
+                return BadRequest("Invalid player id.");
+            }
+
+            try
+            {
+                FootballPlayerResponse response = await _service.GetPlayer(footballPlayerId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetPlayers()
+        {
+            try
+            {
+                List<FootballPlayerResponse> response = await _service.GetPlayers();
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
     }
 }

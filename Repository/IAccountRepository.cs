@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BOs.Resquest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Repository
 {
     public interface IAccountRepository
     {
-        Task<String> Login(string email, string password);
+        Task<String> Login(LoginRequest request);
     }
 }

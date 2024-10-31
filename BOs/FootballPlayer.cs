@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace BOs;
 
@@ -18,6 +19,6 @@ public partial class FootballPlayer
     public string Nomination { get; set; } = null!;
 
     public string? FootballClubId { get; set; }
-
+    [JsonIgnore]
     public virtual FootballClub? FootballClub { get; set; }
 }

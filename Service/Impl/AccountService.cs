@@ -1,4 +1,5 @@
-﻿using Repository;
+﻿using BOs.Resquest;
+using Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace Service.Impl
         {
             _accountRepository = accountRepository;
         }
-        public async Task<string> Login(string email, string password)
+        public async Task<string> Login(LoginRequest request)
         {
-            return await _accountRepository.Login(email, password);
+            return await _accountRepository.Login(request);
         }
     }
 }

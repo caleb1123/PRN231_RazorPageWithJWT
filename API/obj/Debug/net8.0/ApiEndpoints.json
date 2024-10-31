@@ -2,20 +2,15 @@
   {
     "ContainingType": "API.Controllers.AccountController",
     "Method": "LoginB\u1EF5wt",
-    "RelativePath": "api/Account/loginb\u1EF5wt",
+    "RelativePath": "api/Account/loginbyjwt",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "password",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "BOs.Resquest.LoginRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -41,6 +36,48 @@
       {
         "Name": "request",
         "Type": "BOs.Resquest.FootballPlayerResquest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.FootballPlayerController",
+    "Method": "GetPlayer",
+    "RelativePath": "api/FootballPlayer/get/{footballPlayerId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "footballPlayerId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.FootballPlayerController",
+    "Method": "GetPlayers",
+    "RelativePath": "api/FootballPlayer/getall",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.FootballPlayerController",
+    "Method": "RemovePlayer",
+    "RelativePath": "api/FootballPlayer/remove/{footballPlayerId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "footballPlayerId",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

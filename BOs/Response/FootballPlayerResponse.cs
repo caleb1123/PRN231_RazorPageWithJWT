@@ -22,5 +22,8 @@ namespace BOs.Response
 
         public string? FootballClubId { get; set; }
 
+        public virtual FootballClubResponse? FootballClub { get; set; }
+
+
     }
 }

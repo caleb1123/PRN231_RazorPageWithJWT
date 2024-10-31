@@ -13,5 +13,11 @@ namespace Repository
         Task<FootballPlayerResponse> AddPlayer(FootballPlayerResquest resquest);
 
         Task<FootballPlayerResponse> UpdatePlayer(FootballPlayerResquest request);
+
+        Task<bool> RemovePlayer(string footballPlayerId);
+
+        Task<FootballPlayerResponse> GetPlayer(string footballPlayerId);
+
+        Task<List<FootballPlayerResponse>> GetPlayers();
     }
 }

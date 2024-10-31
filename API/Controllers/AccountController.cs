@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BOs.Resquest;
+using Microsoft.AspNetCore.Mvc;
 using Service;
 using Service.Impl;
 
@@ -15,11 +16,11 @@ namespace API.Controllers
             _accountService = accountService;
         }
 
-        [HttpPost("loginbỵwt")] // Define a route for the login action
-        public async Task<ActionResult<String>> LoginBỵwt(string email, string password)
+        [HttpPost("loginbyjwt")] // Define a route for the login action
+        public async Task<ActionResult<String>> LoginBỵwt([FromBody] LoginRequest request)
         {
             // Call the service to login
-            String account = await _accountService.Login(email, password);
+            String account = await _accountService.Login(request);
 
 
             // Return the account details as JSON if login is successful
