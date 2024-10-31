@@ -30,6 +30,26 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/FootballClubPages/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9vdGJhbGxDbHViUGFnZXNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/FootballClubPages/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9vdGJhbGxDbHViUGFnZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/FootballClubPages/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9vdGJhbGxDbHViUGFnZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/FootballClubPages/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9vdGJhbGxDbHViUGFnZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/FootballClubPages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9vdGJhbGxDbHViUGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/FootballPlayerPages/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9vdGJhbGxQbGF5ZXJQYWdlc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,6 +68,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/Logout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ryy15/OneDrive/Desktop/FPTU/PRN321/ASM/ASM1_PRN/FrontEnd/Pages/Privacy.cshtml]

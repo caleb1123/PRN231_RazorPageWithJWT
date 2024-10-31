@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BOs\BOs.csproj" />
+    <ProjectReference Include="..\DAO\DAO.csproj" />
   </ItemGroup>
 
 </Project>

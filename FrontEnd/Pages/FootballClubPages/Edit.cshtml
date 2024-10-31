@@ -1,0 +1,50 @@
+﻿@page
+@model FrontEnd.Pages.FootballClubPages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>FootballClub</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="FootballClub.FootballClubId" />
+            <div class="form-group">
+                <label asp-for="FootballClub.ClubName" class="control-label"></label>
+                <input asp-for="FootballClub.ClubName" class="form-control" />
+                <span asp-validation-for="FootballClub.ClubName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballClub.ClubShortDescription" class="control-label"></label>
+                <input asp-for="FootballClub.ClubShortDescription" class="form-control" />
+                <span asp-validation-for="FootballClub.ClubShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballClub.SoccerPracticeField" class="control-label"></label>
+                <input asp-for="FootballClub.SoccerPracticeField" class="form-control" />
+                <span asp-validation-for="FootballClub.SoccerPracticeField" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FootballClub.Mascos" class="control-label"></label>
+                <input asp-for="FootballClub.Mascos" class="form-control" />
+                <span asp-validation-for="FootballClub.Mascos" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

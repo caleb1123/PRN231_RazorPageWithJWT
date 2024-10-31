@@ -1,4 +1,6 @@
-﻿using BOs.Response;
+﻿using BOs;
+using BOs.Response;
+using BOs.Resquest;
 using Microsoft.AspNetCore.Mvc;
 using Service;
 
@@ -34,6 +36,35 @@ namespace API.Controllers
             return Ok(footballClubs); // HTTP 200 response with the football clubs list
         }
 
+        [HttpPost("addfootballclub")] // Define a route for the add football club action
+        public async Task<ActionResult<FootballClub>> AddFootballClub([FromBody] FootballClubRequest footballClub)
+        {
+            // Call the service to add a new football club
+            FootballClub newFootballClub = await _footballClubService.AddFootballClub(footballClub);
+
+            // Return the new football club details as JSON
+            return Ok(newFootballClub); // HTTP 200 response with the new football club object
+        }
+
+        [HttpPut("updatefootballclub")] // Define a route for the update football club action
+        public async Task<ActionResult<FootballClub>> UpdateFootballClub([FromBody] FootballClubRequest footballClub)
+        {
+            // Call the service to update an existing football club
+            FootballClub updatedFootballClub = await _footballClubService.UpdateFootballClub(footballClub);
+
+            // Return the updated football club details as JSON
+            return Ok(updatedFootballClub); // HTTP 200 response with the updated football club object
+        }
+
+        [HttpDelete("deletefootballclub/{footballClubId}")] // Define a route for the delete football club action
+        public async Task<ActionResult<bool>> DeleteFootballClub(string footballClubId)
+        {
+            // Call the service to delete a football club by id
+            bool isDeleted = await _footballClubService.DeleteFootballClub(footballClubId);
+
+            // Return a boolean value indicating if the football club was deleted
+            return Ok(isDeleted); // HTTP 200 response with the deletion status
+        }
 
     }
 }

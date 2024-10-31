@@ -1,4 +1,6 @@
-﻿using BOs.Response;
+﻿using BOs;
+using BOs.Response;
+using BOs.Resquest;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,17 @@ namespace Service.Impl
         {
             _footballClubRepository = footballClubRepository;
         }
+
+        public async Task<FootballClub> AddFootballClub(FootballClubRequest footballClub)
+        {
+            return await _footballClubRepository.AddFootballClub(footballClub);
+        }
+
+        public async Task<bool> DeleteFootballClub(string footballClubId)
+        {
+            return await _footballClubRepository.DeleteFootballClub(footballClubId);
+        }
+
         public async Task<FootballClubResponse> GetFootballClubById(string footballClubId)
         {
             return await _footballClubRepository.GetFootballClubById(footballClubId);
@@ -23,6 +36,11 @@ namespace Service.Impl
         public async Task<List<FootballClubResponse>> GetFootballClubs()
         {
             return await _footballClubRepository.GetFootballClubs();
+        }
+
+        public async Task<FootballClub> UpdateFootballClub(FootballClubRequest footballClub)
+        {
+            return await _footballClubRepository.UpdateFootballClub(footballClub);
         }
     }
 }

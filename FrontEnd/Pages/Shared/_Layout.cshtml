@@ -26,6 +26,22 @@
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        @if (Context.Session.GetString("AuthToken") != null)
+                        {
+                            <li class="nav-item">
+                                <form asp-page="/Logout" method="post" class="form-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-page="/Index">Login</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>

@@ -9,6 +9,7 @@
       "FrontEnd/1.0.0": {
         "dependencies": {
           "BOs": "1.0.0",
+          "DAO": "1.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.10",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "8.0.6"
         },
@@ -1940,6 +1941,17 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "DAO/1.0.0": {
+        "dependencies": {
+          "BOs": "1.0.0"
+        },
+        "runtime": {
+          "DAO.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -3084,6 +3096,11 @@
       "hashPath": "system.windows.extensions.7.0.0.nupkg.sha512"
     },
     "BOs/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "DAO/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

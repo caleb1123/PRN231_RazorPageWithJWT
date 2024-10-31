@@ -1,5 +1,6 @@
 ﻿using BOs;
 using BOs.Response;
+using BOs.Resquest;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace DAO
         {
             List<FootballClub> footballClubs = await context.FootballClubs.ToListAsync();
 
-            if(footballClubs == null)
+            if (footballClubs == null)
             {
                 throw new Exception("Clubs not found");
             }
@@ -74,5 +75,58 @@ namespace DAO
             }).ToList();
 
         }
+
+        public async Task<FootballClub> AddFootballClub(FootballClubRequest footballClub)
+        {
+            var club = await context.FootballClubs.FindAsync(footballClub.FootballClubId);
+            if (club != null)
+            {
+                throw new Exception("Club already exists");
+            }
+
+            FootballClub clubNew = new FootballClub
+            {
+                FootballClubId = footballClub.FootballClubId,
+                ClubName = footballClub.ClubName,
+                ClubShortDescription = footballClub.ClubShortDescription,
+                SoccerPracticeField = footballClub.SoccerPracticeField,
+                Mascos = footballClub.Mascos
+            };
+
+            context.Add(clubNew);
+            await context.SaveChangesAsync();
+            return clubNew;
+        }
+
+        public async Task<FootballClub> UpdateFootballClub(FootballClubRequest footballClub)
+        {
+            var club = await context.FootballClubs.FindAsync(footballClub.FootballClubId);
+            if (club == null)
+            {
+                throw new Exception("Club not found");
+            }
+
+            club.ClubName = footballClub.ClubName;
+            club.ClubShortDescription = footballClub.ClubShortDescription;
+            club.SoccerPracticeField = footballClub.SoccerPracticeField;
+            club.Mascos = footballClub.Mascos;
+            await context.SaveChangesAsync();
+            return club;
+        }
+
+        public async Task<bool> DeleteFootballClub(String footballClubId)
+        {
+            var club = await context.FootballClubs.FindAsync(footballClubId);
+            if (club == null)
+            {
+                throw new Exception($"Unable to delete football club");
+            }
+
+            context.FootballClubs.Remove(club);
+            await context.SaveChangesAsync();
+            return true;
+
+        }
     }
 }
+

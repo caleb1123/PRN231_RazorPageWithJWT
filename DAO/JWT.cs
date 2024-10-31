@@ -37,7 +37,7 @@ namespace DAO
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.UtcNow.AddMinutes(30)).ToUnixTimeSeconds().ToString()),
-                new Claim("role", rolename)
+                new Claim("Role", rolename)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
@@ -51,6 +51,22 @@ namespace DAO
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+
+        private string GetUserRoleFromToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
+
+            if (jwtToken == null)
+            {
+                return string.Empty; // Hoặc xử lý lỗi nếu cần
+            }
+
+            // Lấy thông tin claim từ token
+            var roleClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role);
+            return roleClaim?.Value; // Trả về giá trị role, có thể null nếu không tìm thấy
         }
     }
 }
