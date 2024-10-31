@@ -1,4 +1,5 @@
-﻿using BOs.Response;
+﻿using BOs;
+using BOs.Response;
 using BOs.Resquest;
 using DAO;
 using Repository;
@@ -22,7 +23,7 @@ namespace Service.Impl
             return await _repository.AddPlayer(resquest);
         }
 
-        public Task<FootballPlayerResponse> GetPlayer(string footballPlayerId)
+        public Task<FootballPlayer> GetPlayer(string footballPlayerId)
         {
             return _repository.GetPlayer(footballPlayerId);
         }
@@ -37,7 +38,7 @@ namespace Service.Impl
             return _repository.RemovePlayer(footballPlayerId);
         }
 
-        public async Task<FootballPlayerResponse> UpdatePlayer(FootballPlayerResquest request)
+        public async Task<FootballPlayer> UpdatePlayer(FootballPlayer request)
         {
             return await _repository.UpdatePlayer(request);
         }

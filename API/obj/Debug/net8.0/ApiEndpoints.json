@@ -26,6 +26,52 @@
     ]
   },
   {
+    "ContainingType": "API.Controllers.FootballClubController",
+    "Method": "GetFootballClubById",
+    "RelativePath": "api/FootballClub/getfootballclubbyid/{footballClubId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "footballClubId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "BOs.Response.FootballClubResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "API.Controllers.FootballClubController",
+    "Method": "GetFootballClubs",
+    "RelativePath": "api/FootballClub/getfootballclubs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[BOs.Response.FootballClubResponse, BOs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "API.Controllers.FootballPlayerController",
     "Method": "AddPlayer",
     "RelativePath": "api/FootballPlayer/add",
@@ -93,7 +139,7 @@
     "Parameters": [
       {
         "Name": "request",
-        "Type": "BOs.Resquest.FootballPlayerResquest",
+        "Type": "BOs.FootballPlayer",
         "IsRequired": true
       }
     ],

@@ -32,31 +32,35 @@ namespace DAO
             }
         }
 
-        public Task<FootballPlayerResponse> AddPlayer(FootballPlayerResquest resquest)
+        public async Task<FootballPlayerResponse> AddPlayer(FootballPlayerResquest request)
         {
-            FootballClub club = context.FootballClubs.Find(resquest.FootballClubId);
+            // Tìm kiếm câu lạc bộ theo FootballClubId
+            var club = await context.FootballClubs.FindAsync(request.FootballClubId);
 
             if (club == null)
             {
                 throw new Exception("Club not found");
             }
 
+            // Tạo đối tượng cầu thủ bóng đá mới
             FootballPlayer player = new FootballPlayer
             {
-                FootballPlayerId = resquest.FootballPlayerId,
-                FullName = resquest.FullName,
-                Achievements = resquest.Achievements,
-                Birthday = resquest.Birthday,
-                PlayerExperiences = resquest.PlayerExperiences,
-                Nomination = resquest.Nomination,
-                FootballClubId = resquest.FootballClubId,
+                FootballPlayerId = request.FootballPlayerId,
+                FullName = request.FullName,
+                Achievements = request.Achievements,
+                Birthday = request.Birthday,
+                PlayerExperiences = request.PlayerExperiences,
+                Nomination = request.Nomination,
+                FootballClubId = request.FootballClubId,
                 FootballClub = club
             };
 
-            context.FootballPlayers.Add(player);
-            context.SaveChanges();
+            // Thêm cầu thủ vào context
+            await context.FootballPlayers.AddAsync(player); // Sử dụng AddAsync để thêm cầu thủ
+            await context.SaveChangesAsync(); // Sử dụng SaveChangesAsync để lưu thay đổi
 
-            return Task.FromResult(new FootballPlayerResponse
+            // Trả về đối tượng FootballPlayerResponse
+            return new FootballPlayerResponse
             {
                 FootballPlayerId = player.FootballPlayerId,
                 FullName = player.FullName,
@@ -65,11 +69,10 @@ namespace DAO
                 PlayerExperiences = player.PlayerExperiences,
                 Nomination = player.Nomination,
                 FootballClubId = player.FootballClubId,
-
-            });
-
+            };
         }
-        public async Task<FootballPlayerResponse> updatePlayer(FootballPlayerResquest request)
+
+        public async Task<FootballPlayer> updatePlayer(FootballPlayer request)
         {
             var club = await context.FootballClubs.FindAsync(request.FootballClubId);
             if (club == null)
@@ -91,16 +94,7 @@ namespace DAO
             player.FootballClub = club;
             await context.SaveChangesAsync();
 
-            return new FootballPlayerResponse
-            {
-                FootballPlayerId = player.FootballPlayerId,
-                FullName = player.FullName,
-                Achievements = player.Achievements,
-                Birthday = player.Birthday,
-                PlayerExperiences = player.PlayerExperiences,
-                Nomination = player.Nomination,
-                FootballClubId = player.FootballClubId,
-            };
+            return player;
         }
 
         public async Task<bool> deletePlayer(string id)
@@ -154,23 +148,14 @@ namespace DAO
 
 
 
-        public async Task<FootballPlayerResponse> getPlayerById(string id)
+        public async Task<FootballPlayer> getPlayerById(string id)
         {
             var player = await context.FootballPlayers.FindAsync(id);
             if (player == null)
             {
                 throw new Exception("Player not found");
             }
-            return new FootballPlayerResponse
-            {
-                FootballPlayerId = player.FootballPlayerId,
-                FullName = player.FullName,
-                Achievements = player.Achievements,
-                Birthday = player.Birthday,
-                PlayerExperiences = player.PlayerExperiences,
-                Nomination = player.Nomination,
-                FootballClubId = player.FootballClubId,
-            };
+            return player;
         }
     }
 }

@@ -6,57 +6,88 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BOs;
+using BOs.Response;
 
 namespace FrontEnd.Pages.FootballPlayerPages
 {
     public class DeleteModel : PageModel
     {
-        private readonly BOs.EnglishPremierLeague2024DbContext _context;
+        private readonly HttpClient _httpClient;
 
-        public DeleteModel(BOs.EnglishPremierLeague2024DbContext context)
+        public DeleteModel(HttpClient httpClient)
         {
-            _context = context;
+            _httpClient = httpClient;
         }
 
         [BindProperty]
         public FootballPlayer FootballPlayer { get; set; } = default!;
 
+        [BindProperty]
+        public IEnumerable<FootballClubResponse> FootballClubs { get; set; } = new List<FootballClubResponse>();
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                // Call API to get football player by ID
+                FootballPlayer = await _httpClient.GetFromJsonAsync<FootballPlayer>($"http://localhost:5009/api/FootballPlayer/get/{id}");
+
+                if (FootballPlayer == null)
+                {
+                    return NotFound();
+                }
+
+                // Call API to retrieve all football clubs
+                var response = await _httpClient.GetAsync("http://localhost:5009/api/FootballClub/getfootballclubs");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    FootballClubs = await response.Content.ReadFromJsonAsync<IEnumerable<FootballClubResponse>>() ?? new List<FootballClubResponse>();
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Không thể tải danh sách câu lạc bộ.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}");
             }
 
-            var footballplayer = await _context.FootballPlayers.FirstOrDefaultAsync(m => m.FootballPlayerId == id);
-
-            if (footballplayer == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                FootballPlayer = footballplayer;
-            }
             return Page();
         }
 
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                return NotFound();
+                return NotFound(); // Ensure that the ID is not null or empty
             }
 
-            var footballplayer = await _context.FootballPlayers.FindAsync(id);
-            if (footballplayer != null)
+            try
             {
-                FootballPlayer = footballplayer;
-                _context.FootballPlayers.Remove(FootballPlayer);
-                await _context.SaveChangesAsync();
-            }
+                // Call API to remove the football player
+                var response = await _httpClient.DeleteAsync($"http://localhost:5009/api/FootballPlayer/remove/{id}");
 
-            return RedirectToPage("./Index");
+                // Check if the response was successful
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("./Index"); // Redirect to the Index page upon success
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Không thể xóa cầu thủ bóng đá."); // Error message for failure
+                    return Page(); // Return the page with the error message
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}"); // Catch and display any errors
+                return Page(); // Return the page with the error message
+            }
         }
+
+
     }
 }

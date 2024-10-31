@@ -1,4 +1,5 @@
-﻿using BOs.Response;
+﻿using BOs;
+using BOs.Response;
 using BOs.Resquest;
 using Microsoft.AspNetCore.Mvc;
 using Service;
@@ -36,7 +37,7 @@ namespace API.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdatePlayer([FromBody] FootballPlayerResquest request)
+        public async Task<IActionResult> UpdatePlayer([FromBody] FootballPlayer request)
         {
             if (request == null)
             {
@@ -45,7 +46,7 @@ namespace API.Controllers
 
             try
             {
-                FootballPlayerResponse response = await _service.UpdatePlayer(request);
+                FootballPlayer response = await _service.UpdatePlayer(request);
                 return Ok(response);
             }
             catch (Exception ex)
@@ -83,7 +84,7 @@ namespace API.Controllers
 
             try
             {
-                FootballPlayerResponse response = await _service.GetPlayer(footballPlayerId);
+                FootballPlayer response = await _service.GetPlayer(footballPlayerId);
                 return Ok(response);
             }
             catch (Exception ex)

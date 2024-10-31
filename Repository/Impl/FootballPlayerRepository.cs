@@ -1,4 +1,5 @@
-﻿using BOs.Response;
+﻿using BOs;
+using BOs.Response;
 using BOs.Resquest;
 using DAO;
 using System;
@@ -16,7 +17,7 @@ namespace Repository.Impl
             return await FootballPlayerDAO.Instance.AddPlayer(resquest);
         }
 
-        public async Task<FootballPlayerResponse> GetPlayer(string footballPlayerId)
+        public async Task<FootballPlayer> GetPlayer(string footballPlayerId)
         {
             return await FootballPlayerDAO.Instance.getPlayerById(footballPlayerId);
         }
@@ -31,7 +32,7 @@ namespace Repository.Impl
             return await FootballPlayerDAO.Instance.deletePlayer(footballPlayerId);
         }
 
-        public async Task<FootballPlayerResponse> UpdatePlayer(FootballPlayerResquest request)
+        public async Task<FootballPlayer> UpdatePlayer(FootballPlayer request)
         {
            return await FootballPlayerDAO.Instance.updatePlayer(request);
         }

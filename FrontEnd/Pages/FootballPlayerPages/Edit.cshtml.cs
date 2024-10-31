@@ -7,35 +7,54 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOs;
+using BOs.Response;
+using System.Net.Http;
 
 namespace FrontEnd.Pages.FootballPlayerPages
 {
     public class EditModel : PageModel
     {
-        private readonly BOs.EnglishPremierLeague2024DbContext _context;
+        private readonly HttpClient _httpClient;
 
-        public EditModel(BOs.EnglishPremierLeague2024DbContext context)
+        public EditModel(HttpClient httpClient)
         {
-            _context = context;
+            _httpClient = httpClient;
         }
 
         [BindProperty]
         public FootballPlayer FootballPlayer { get; set; } = default!;
 
+        [BindProperty]
+        public IEnumerable<FootballClubResponse> FootballClubs { get; set; } = new List<FootballClubResponse>();
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                // Call API to get football player by ID
+                FootballPlayer = await _httpClient.GetFromJsonAsync<FootballPlayer>($"http://localhost:5009/api/FootballPlayer/get/{id}");
+
+                if (FootballPlayer == null)
+                {
+                    return NotFound();
+                }
+
+                // Call API to retrieve all football clubs
+                var response = await _httpClient.GetAsync("http://localhost:5009/api/FootballClub/getfootballclubs");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    FootballClubs = await response.Content.ReadFromJsonAsync<IEnumerable<FootballClubResponse>>() ?? new List<FootballClubResponse>();
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Không thể tải danh sách câu lạc bộ.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}");
             }
 
-            var footballplayer =  await _context.FootballPlayers.FirstOrDefaultAsync(m => m.FootballPlayerId == id);
-            if (footballplayer == null)
-            {
-                return NotFound();
-            }
-            FootballPlayer = footballplayer;
-           ViewData["FootballClubId"] = new SelectList(_context.FootballClubs, "FootballClubId", "FootballClubId");
             return Page();
         }
 
@@ -48,30 +67,29 @@ namespace FrontEnd.Pages.FootballPlayerPages
                 return Page();
             }
 
-            _context.Attach(FootballPlayer).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FootballPlayerExists(FootballPlayer.FootballPlayerId))
+                // Call API to update the football player
+                var response = await _httpClient.PutAsJsonAsync("http://localhost:5009/api/FootballPlayer/update", FootballPlayer);
+
+                // Check if the response was successful
+                if (response.IsSuccessStatusCode)
                 {
-                    return NotFound();
+                    return RedirectToPage("./Index"); // Redirect to the Index page upon success
                 }
                 else
                 {
-                    throw;
+                    ModelState.AddModelError(string.Empty, "Không thể cập nhật cầu thủ bóng đá."); // Error message for failure
+                    return Page(); // Return the page with the error message
                 }
             }
-
-            return RedirectToPage("./Index");
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}"); // Catch and display any errors
+                return Page(); // Return the page with the error message
+            }
         }
 
-        private bool FootballPlayerExists(string id)
-        {
-            return _context.FootballPlayers.Any(e => e.FootballPlayerId == id);
-        }
+
     }
 }
