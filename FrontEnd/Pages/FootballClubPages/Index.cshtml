@@ -9,6 +9,7 @@
 
 <p>
     <a asp-page="Create">Create New</a>
+    <a asp-page="/FootballPlayerPages/Index">FootballPlayer Manage</a>
 </p>
 <table class="table">
     <thead>
@@ -45,7 +46,6 @@
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.FootballClubId">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.FootballClubId">Details</a> |
                 <a asp-page="./Delete" asp-route-id="@item.FootballClubId">Delete</a>
             </td>
         </tr>

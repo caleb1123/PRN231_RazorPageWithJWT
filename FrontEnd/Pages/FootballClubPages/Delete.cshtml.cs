@@ -6,57 +6,71 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BOs;
+using BOs.Response;
 
 namespace FrontEnd.Pages.FootballClubPages
 {
     public class DeleteModel : PageModel
     {
-        private readonly BOs.EnglishPremierLeague2024DbContext _context;
+        private readonly HttpClient _httpClient;
 
-        public DeleteModel(BOs.EnglishPremierLeague2024DbContext context)
+        public DeleteModel(HttpClient httpClient)
         {
-            _context = context;
+            _httpClient = httpClient;
         }
 
         [BindProperty]
-        public FootballClub FootballClub { get; set; } = default!;
+        public FootballClubResponse FootballClub { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                // Call API to get football player by ID
+                FootballClub = await _httpClient.GetFromJsonAsync<FootballClubResponse>($"http://localhost:5009/api/FootballClub/getfootballclubbyid/{id}");
+
+                if (FootballClub == null)
+                {
+                    return NotFound();
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}");
             }
 
-            var footballclub = await _context.FootballClubs.FirstOrDefaultAsync(m => m.FootballClubId == id);
-
-            if (footballclub == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                FootballClub = footballclub;
-            }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
-                return NotFound();
+                return NotFound(); // Ensure that the ID is not null or empty
             }
 
-            var footballclub = await _context.FootballClubs.FindAsync(id);
-            if (footballclub != null)
+            try
             {
-                FootballClub = footballclub;
-                _context.FootballClubs.Remove(FootballClub);
-                await _context.SaveChangesAsync();
-            }
+                // Call API to remove the football player
+                var response = await _httpClient.DeleteAsync($"http://localhost:5009/api/FootballClub/deletefootballclub/{id}");
 
-            return RedirectToPage("./Index");
+                // Check if the response was successful
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("./Index"); // Redirect to the Index page upon success
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Không thể xóa cầu thủ bóng đá."); // Error message for failure
+                    return Page(); // Return the page with the error message
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}"); // Catch and display any errors
+                return Page(); // Return the page with the error message
+            }
         }
     }
 }

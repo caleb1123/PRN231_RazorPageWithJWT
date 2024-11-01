@@ -6,16 +6,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BOs;
+using BOs.Resquest;
 
 namespace FrontEnd.Pages.FootballClubPages
 {
     public class CreateModel : PageModel
     {
-        private readonly BOs.EnglishPremierLeague2024DbContext _context;
+        private readonly HttpClient _httpClient;
 
-        public CreateModel(BOs.EnglishPremierLeague2024DbContext context)
+        public CreateModel(HttpClient httpClient)
         {
-            _context = context;
+            _httpClient = httpClient;
         }
 
         public IActionResult OnGet()
@@ -24,7 +25,7 @@ namespace FrontEnd.Pages.FootballClubPages
         }
 
         [BindProperty]
-        public FootballClub FootballClub { get; set; } = default!;
+        public FootballClubRequest FootballClub { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -34,10 +35,26 @@ namespace FrontEnd.Pages.FootballClubPages
                 return Page();
             }
 
-            _context.FootballClubs.Add(FootballClub);
-            await _context.SaveChangesAsync();
+            try
+            {
+                // Gọi API để thêm cầu thủ bóng đá mới
+                var response = await _httpClient.PostAsJsonAsync("http://localhost:5009/api/FootballClub/addfootballclub", FootballClub);
 
-            return RedirectToPage("./Index");
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToPage("./Index");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Không thể thêm cầu thủ bóng đá.");
+                    return Page();
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}");
+                return Page();
+            }
         }
     }
 }

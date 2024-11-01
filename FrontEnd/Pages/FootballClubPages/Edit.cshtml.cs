@@ -7,34 +7,40 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BOs;
+using BOs.Response;
 
 namespace FrontEnd.Pages.FootballClubPages
 {
     public class EditModel : PageModel
     {
-        private readonly BOs.EnglishPremierLeague2024DbContext _context;
+        private readonly HttpClient _httpClient;
 
-        public EditModel(BOs.EnglishPremierLeague2024DbContext context)
+        public EditModel(HttpClient httpClient)
         {
-            _context = context;
+            _httpClient = httpClient;
         }
 
         [BindProperty]
-        public FootballClub FootballClub { get; set; } = default!;
+        public BOs.FootballClub FootballClub { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                // Call API to get football player by ID
+                FootballClub = await _httpClient.GetFromJsonAsync<BOs.FootballClub>($"http://localhost:5009/api/FootballClub/getfootballclubbyid/{id}");
+
+                if (FootballClub == null)
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}");
             }
 
-            var footballclub =  await _context.FootballClubs.FirstOrDefaultAsync(m => m.FootballClubId == id);
-            if (footballclub == null)
-            {
-                return NotFound();
-            }
-            FootballClub = footballclub;
             return Page();
         }
 
@@ -47,30 +53,29 @@ namespace FrontEnd.Pages.FootballClubPages
                 return Page();
             }
 
-            _context.Attach(FootballClub).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FootballClubExists(FootballClub.FootballClubId))
+                // Call API to update the football player
+                var response = await _httpClient.PutAsJsonAsync("http://localhost:5009/api/FootballClub/updatefootballclub", FootballClub);
+
+                // Check if the response was successful
+                if (response.IsSuccessStatusCode)
                 {
-                    return NotFound();
+                    return RedirectToPage("./Index"); // Redirect to the Index page upon success
                 }
                 else
                 {
-                    throw;
+                    ModelState.AddModelError(string.Empty, "Không thể cập nhật cầu thủ bóng đá."); // Error message for failure
+                    return Page(); // Return the page with the error message
                 }
             }
-
-            return RedirectToPage("./Index");
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, $"Đã xảy ra lỗi: {ex.Message}"); // Catch and display any errors
+                return Page(); // Return the page with the error message
+            }
         }
 
-        private bool FootballClubExists(string id)
-        {
-            return _context.FootballClubs.Any(e => e.FootballClubId == id);
-        }
+        
     }
 }

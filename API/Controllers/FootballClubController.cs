@@ -37,20 +37,20 @@ namespace API.Controllers
         }
 
         [HttpPost("addfootballclub")] // Define a route for the add football club action
-        public async Task<ActionResult<FootballClub>> AddFootballClub([FromBody] FootballClubRequest footballClub)
+        public async Task<ActionResult<BOs.FootballClub>> AddFootballClub([FromBody] FootballClubRequest footballClub)
         {
             // Call the service to add a new football club
-            FootballClub newFootballClub = await _footballClubService.AddFootballClub(footballClub);
+            BOs.FootballClub newFootballClub = await _footballClubService.AddFootballClub(footballClub);
 
             // Return the new football club details as JSON
             return Ok(newFootballClub); // HTTP 200 response with the new football club object
         }
 
         [HttpPut("updatefootballclub")] // Define a route for the update football club action
-        public async Task<ActionResult<FootballClub>> UpdateFootballClub([FromBody] FootballClubRequest footballClub)
+        public async Task<ActionResult<BOs.FootballClub>> UpdateFootballClub([FromBody] FootballClubRequest footballClub)
         {
             // Call the service to update an existing football club
-            FootballClub updatedFootballClub = await _footballClubService.UpdateFootballClub(footballClub);
+            BOs.FootballClub updatedFootballClub = await _footballClubService.UpdateFootballClub(footballClub);
 
             // Return the updated football club details as JSON
             return Ok(updatedFootballClub); // HTTP 200 response with the updated football club object
