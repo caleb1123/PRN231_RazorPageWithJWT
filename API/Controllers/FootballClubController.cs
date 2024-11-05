@@ -2,20 +2,22 @@
 using BOs.Response;
 using BOs.Resquest;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Service;
 
 namespace API.Controllers
 {
     [ApiController] // Ensure that the controller is recognized as an API controller
     [Route("api/[controller]")]
-    public class FootballClubController : ControllerBase
+    public class FootballClubController : ODataController
     {
         private readonly IFootballClubService _footballClubService;
         public FootballClubController(IFootballClubService footballClubService)
         {
             _footballClubService = footballClubService;
         }
-
+        [EnableQuery]
         [HttpGet("getfootballclubbyid/{footballClubId}")] // Define a route for the get football club by id action
         public async Task<ActionResult<FootballClubResponse>> GetFootballClubById(string footballClubId)
         {
@@ -25,7 +27,7 @@ namespace API.Controllers
             // Return the football club details as JSON if found
             return Ok(footballClub); // HTTP 200 response with the football club object
         }
-
+        [EnableQuery]
         [HttpGet("getfootballclubs")] // Define a route for the get football clubs action
         public async Task<ActionResult<List<FootballClubResponse>>> GetFootballClubs()
         {

@@ -262,3 +262,9 @@ C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\obj\Debug\net8
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\obj\Debug\net8.0\ref\FrontEnd.dll
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\bin\Debug\net8.0\DAO.dll
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\bin\Debug\net8.0\DAO.pdb
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\bin\Debug\net8.0\Microsoft.AspNetCore.OData.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\bin\Debug\net8.0\Microsoft.OData.Core.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\bin\Debug\net8.0\Microsoft.OData.Edm.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\bin\Debug\net8.0\Microsoft.OData.ModelBuilder.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\bin\Debug\net8.0\Microsoft.Spatial.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\FrontEnd\obj\Debug\net8.0\FrontEnd.MvcApplicationPartsAssemblyInfo.cs

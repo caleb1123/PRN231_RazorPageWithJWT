@@ -2,6 +2,7 @@
 using BOs.Response;
 using BOs.Resquest;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Service;
 
 namespace API.Controllers
@@ -74,6 +75,7 @@ namespace API.Controllers
             }
         }
 
+        [EnableQuery]
         [HttpGet("get/{footballPlayerId}")]
         public async Task<IActionResult> GetPlayer(string footballPlayerId)
         {
@@ -93,6 +95,7 @@ namespace API.Controllers
             }
         }
 
+        [EnableQuery]
         [HttpGet("getall")]
         public async Task<IActionResult> GetPlayers()
         {

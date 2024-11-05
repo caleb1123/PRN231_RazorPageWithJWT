@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace BOs.Response
 {
     public class FootballPlayerResponse
     {
+        [Key]
         public string FootballPlayerId { get; set; } = null!;
 
         public string FullName { get; set; } = null!;

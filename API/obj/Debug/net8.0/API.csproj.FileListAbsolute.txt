@@ -78,3 +78,8 @@ C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\obj\Debug\net8.0\re
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\obj\Debug\net8.0\API.pdb
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\bin\Debug\net8.0\Microsoft.AspNetCore.OData.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\bin\Debug\net8.0\Microsoft.OData.Core.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\bin\Debug\net8.0\Microsoft.OData.Edm.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\bin\Debug\net8.0\Microsoft.OData.ModelBuilder.dll
+C:\Users\ryy15\OneDrive\Desktop\FPTU\PRN321\ASM\ASM1_PRN\API\bin\Debug\net8.0\Microsoft.Spatial.dll
