@@ -209,6 +209,22 @@
   },
   {
     "ContainingType": "API.Controllers.FootballPlayerController",
+    "Method": "SearchPlayers",
+    "RelativePath": "api/FootballPlayer/search/{searchTerm}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "searchTerm",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controllers.FootballPlayerController",
     "Method": "UpdatePlayer",
     "RelativePath": "api/FootballPlayer/update",
     "HttpMethod": "PUT",

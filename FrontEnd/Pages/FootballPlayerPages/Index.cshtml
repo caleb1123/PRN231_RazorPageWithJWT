@@ -14,6 +14,12 @@
         <a asp-page="/FootballClubPages/Index">Club Manage</a>
                     }
 </p>
+
+<!-- Search Form -->
+<form method="get">
+    <input type="text" name="searchTerm" value="@Model.SearchTerm" placeholder="Search by player name..." />
+    <button type="submit">Search</button>
+</form>
 <table class="table">
     <thead>
         <tr>

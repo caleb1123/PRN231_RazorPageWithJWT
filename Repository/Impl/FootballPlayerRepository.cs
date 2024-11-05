@@ -32,6 +32,11 @@ namespace Repository.Impl
             return await FootballPlayerDAO.Instance.deletePlayer(footballPlayerId);
         }
 
+        public async Task<List<FootballPlayerResponse>> SearchPlayers(string searchTerm)
+        {
+             return await FootballPlayerDAO.Instance.SearchPlayers(searchTerm);
+        }
+
         public async Task<FootballPlayer> UpdatePlayer(FootballPlayer request)
         {
            return await FootballPlayerDAO.Instance.updatePlayer(request);

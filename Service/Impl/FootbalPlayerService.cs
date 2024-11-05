@@ -38,6 +38,11 @@ namespace Service.Impl
             return _repository.RemovePlayer(footballPlayerId);
         }
 
+        public Task<List<FootballPlayerResponse>> SearchPlayers(string searchTerm)
+        {
+            return _repository.SearchPlayers(searchTerm);
+        }
+
         public async Task<FootballPlayer> UpdatePlayer(FootballPlayer request)
         {
             return await _repository.UpdatePlayer(request);

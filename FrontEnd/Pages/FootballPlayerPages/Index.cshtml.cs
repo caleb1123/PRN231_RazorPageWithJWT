@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json; // Make sure to include this for JSON deserialization
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -14,40 +14,36 @@ namespace FrontEnd.Pages.FootballPlayerPages
 {
     public class IndexModel : PageModel
     {
-        private readonly HttpClient _httpClient; // Declare HttpClient instance
+        private readonly HttpClient _httpClient;
 
-        public IndexModel(HttpClient httpClient) // Inject HttpClient
+        public IndexModel(HttpClient httpClient)
         {
             _httpClient = httpClient;
         }
 
-        public IList<FootballPlayerDTO> FootballPlayer { get; set; } = default!; // Use FootballPlayerResponse
+        [BindProperty(SupportsGet = true)]
+        public IList<FootballPlayerDTO> FootballPlayer { get; set; } = default!;
 
         public string UserRole { get; private set; }
 
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; } = string.Empty; // Bind SearchTerm for query parameters
+
         public async Task OnGetAsync()
         {
-            try
+            var token = HttpContext.Session.GetString("AuthToken");
+            UserRole = !string.IsNullOrEmpty(token) ? GetUserRoleFromToken(token) : string.Empty;
+
+            // Determine the appropriate API endpoint based on the search term
+            if (string.IsNullOrEmpty(SearchTerm))
             {
-                var token = HttpContext.Session.GetString("AuthToken");
-
-                if (!string.IsNullOrEmpty(token))
-                {
-                    UserRole = GetUserRoleFromToken(token);
-                }
-                else
-                {
-                    UserRole = string.Empty; // No role if token is missing
-                }
-
-                // Call the API to get all football players
+                // Retrieve all players if no search term is provided
                 FootballPlayer = await _httpClient.GetFromJsonAsync<List<FootballPlayerDTO>>("http://localhost:5009/api/FootballPlayer/getall");
             }
-            catch (HttpRequestException e)
+            else
             {
-                // Handle error (log it, show message, etc.)
-                Console.WriteLine($"Request error: {e.Message}");
-                FootballPlayer = new List<FootballPlayerDTO>(); // Set to empty list on error
+                // Retrieve players based on the search term
+                FootballPlayer = await _httpClient.GetFromJsonAsync<List<FootballPlayerDTO>>($"http://localhost:5009/api/FootballPlayer/search/{SearchTerm}");
             }
         }
 
@@ -56,15 +52,12 @@ namespace FrontEnd.Pages.FootballPlayerPages
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
 
-            // Check if jwtToken is valid
             if (jwtToken == null)
             {
                 return string.Empty;
             }
 
-            // Retrieve the role claim
             var roleClaim = jwtToken.Claims.FirstOrDefault(c => c.Type == "Role");
-
             return roleClaim?.Value ?? string.Empty;
         }
     }

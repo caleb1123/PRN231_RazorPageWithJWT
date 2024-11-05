@@ -157,5 +157,48 @@ namespace DAO
             }
             return player;
         }
-    }
-}
+
+        public async Task<List<FootballPlayerResponse>> SearchPlayers(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return await GetAll();
+            }
+
+            // Perform search based on FullName and Achievements fields
+            List<FootballPlayer> players = await context.FootballPlayers
+                .Include(p => p.FootballClub) // Include the FootballClub navigation property
+                .Where(p => p.FullName.Contains(searchTerm) ||
+                            p.Achievements.Contains(searchTerm))
+                .ToListAsync();
+
+            // Map the players to their response DTOs
+            List<FootballPlayerResponse> playerResponses = players.Select(player => new FootballPlayerResponse
+            {
+                FootballPlayerId = player.FootballPlayerId,
+                FullName = player.FullName,
+                Achievements = player.Achievements,
+                Birthday = player.Birthday,
+                PlayerExperiences = player.PlayerExperiences,
+                Nomination = player.Nomination,
+                FootballClubId = player.FootballClubId,
+                FootballClub = player.FootballClub != null ? new FootballClubResponse
+                {
+                    FootballClubId = player.FootballClub.FootballClubId,
+                    ClubName = player.FootballClub.ClubName,
+                    ClubShortDescription = player.FootballClub.ClubShortDescription,
+                    SoccerPracticeField = player.FootballClub.SoccerPracticeField,
+                    Mascos = player.FootballClub.Mascos
+                } : null // Handle the case where FootballClub is null
+            }).ToList();
+
+            // Throw an exception if no players were found
+            if (!playerResponses.Any())
+            {
+                throw new Exception("No player found");
+            }
+
+            return playerResponses;
+        }
+     }
+ }

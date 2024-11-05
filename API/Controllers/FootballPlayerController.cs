@@ -107,6 +107,25 @@ namespace API.Controllers
             }
         }
 
+        [HttpGet("search/{searchTerm}")]
+        public async Task<IActionResult> SearchPlayers(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return BadRequest("Invalid search term.");
+            }
 
-    }
+            try
+            {
+                List<FootballPlayerResponse> response = await _service.SearchPlayers(searchTerm);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
+        }
 }

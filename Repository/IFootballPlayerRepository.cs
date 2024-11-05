@@ -20,5 +20,7 @@ namespace Repository
         Task<FootballPlayer> GetPlayer(string footballPlayerId);
 
         Task<List<FootballPlayerResponse>> GetPlayers();
+
+        Task<List<FootballPlayerResponse>> SearchPlayers(string searchTerm);
     }
 }
